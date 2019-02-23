@@ -9,11 +9,14 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
-    @recipe.ingredients.build(ingredient_type: '1')
-    @recipe.ingredients.build(ingredient_type: '2')
+    @recipe.ingredients.build
   end
 
   def create
+    @recipe = Recipe.new(recipe_params)
+    if @recipe.save
+      redirect_to recipe_path(@recipe), notice: "Your recipe was created"
+    end
   end
 
   def recipe_params
